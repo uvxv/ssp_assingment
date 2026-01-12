@@ -26,17 +26,17 @@
                 <nav class="flex items-center gap-4">
                     @auth
                         <div class="flex items-center gap-3">
-                            <span class="text-sm font-medium text-zinc-700">
+                            <span class="text-sm font-medium text-[#db2777]">
                                 <a href="{{ url('/dashboard') }}">Dashboard</a>
                             </span>
                             <div
-                                class="h-8 w-8 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-bold text-zinc-500">
+                                class="h-8 w-8 rounded-full bg-zinc-100 border border-zinc-200 flex items-center justify-center text-xs font-bold text-[#db2777]">
                                 A
                             </div>
                         </div>
                     @else
                         <a href="{{ route('login') }}"
-                            class="inline-flex items-center px-4 py-1.5 bg-[#F53003] hover:bg-[#d93a00] text-white rounded-md text-sm font-medium shadow transition-colors">
+                            class="inline-flex items-center px-4 py-1.5 bg-[#db2777] hover:bg-[#d93a00] text-white rounded-md text-sm font-medium shadow transition-colors">
                             Log in
                         </a>
 
