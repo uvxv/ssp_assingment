@@ -1,20 +1,38 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-[#fdf2f8] border-b border-[#ec4899]/20">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto px-4 pt-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-mark class="block h-9 w-auto" />
+                    <a href="{{ route('home') }}">
+                        <img src="{{ asset('storage/logo-preview.png') }}" alt="Logo" class="h-14 w-14 object-contain">
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+                <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
+                    <a href="{{ route('dashboard') }}"
+                        class="relative inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out 
+                                        {{ request()->routeIs('dashboard')
+                                            ? 'border-transparent bg-[#ffffff] text-[#ec4899] rounded-t-3xl'
+                                            : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+
                         {{ __('Dashboard') }}
-                    </x-nav-link>
+
+                    </a>
+                    <a href="#"
+                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('products.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+                        {{ __('Products') }}
+                    </a>
+                    <a href="#"
+                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('cart.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+                        {{ __('Cart') }}
+                    </a>
+                    <a href="#"
+                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('payments.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+                        {{ __('Payments') }}
+                    </a>
                 </div>
             </div>
 
@@ -25,11 +43,14 @@
                         <x-dropdown align="right" width="60">
                             <x-slot name="trigger">
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                    <button type="button"
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-[#1f1f22] bg-[#fce7f3] hover:text-[#ec4899] focus:outline-none focus:bg-[#fce7f3] active:bg-[#fce7f3] transition ease-in-out duration-150">
                                         {{ Auth::user()->currentTeam->name }}
 
-                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
+                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M8.25 15L12 18.75 15.75 15m-7.5-6L12 5.25 15.75 9" />
                                         </svg>
                                     </button>
                                 </span>
@@ -76,16 +97,21 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
-                                <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="size-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                <button
+                                    class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-[#ec4899] transition">
+                                    <img class="size-8 rounded-full object-cover"
+                                        src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">
-                                    <button type="button" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none focus:bg-gray-50 active:bg-gray-50 transition ease-in-out duration-150">
+                                    <button type="button"
+                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-[#1f1f22] bg-[#fce7f3] hover:text-[#ec4899] focus:outline-none focus:bg-[#fce7f3] active:bg-[#fce7f3] transition ease-in-out duration-150">
                                         {{ Auth::user()->name }}
 
-                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
                                         </svg>
                                     </button>
                                 </span>
@@ -114,8 +140,7 @@
                             <form method="POST" action="{{ route('logout') }}" x-data>
                                 @csrf
 
-                                <x-dropdown-link href="{{ route('logout') }}"
-                                         @click.prevent="$root.submit();">
+                                <x-dropdown-link href="{{ route('logout') }}" @click.prevent="$root.submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -126,10 +151,14 @@
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                <button @click="open = ! open"
+                    class="inline-flex items-center justify-center p-2 rounded-md text-[#831843] hover:text-[#ec4899] hover:bg-[#fce7f3] focus:outline-none focus:bg-[#fce7f3] focus:text-[#ec4899] transition duration-150 ease-in-out">
                     <svg class="size-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
+                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
+                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -137,36 +166,52 @@
     </div>
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden bg-[#fce7f3]/50">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
+            <a href="{{ route('dashboard') }}"
+                class="block px-3 py-2 rounded-md text-base font-medium transition duration-300 {{ request()->routeIs('dashboard') ? 'bg-[#fce7f3] text-[#ec4899]' : 'text-[#1f1f22] hover:text-[#ec4899] hover:bg-[#fce7f3]/50' }}">
                 {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            </a>
+            <a href=""
+                class="block px-3 py-2 rounded-md text-base font-medium transition duration-300 {{ request()->routeIs('products.*') ? 'bg-[#fce7f3] text-[#ec4899]' : 'text-[#1f1f22] hover:text-[#ec4899] hover:bg-[#fce7f3]/50' }}">
+                {{ __('Products') }}
+            </a>
+            <a href="{{ '#' }}"
+                class="block px-3 py-2 rounded-md text-base font-medium transition duration-300 {{ request()->routeIs('cart.*') ? 'bg-[#fce7f3] text-[#ec4899]' : 'text-[#1f1f22] hover:text-[#ec4899] hover:bg-[#fce7f3]/50' }}">
+                {{ __('Cart') }}
+            </a>
+            <a href="{{ '#' }}"
+                class="block px-3 py-2 rounded-md text-base font-medium transition duration-300 {{ request()->routeIs('payments.*') ? 'bg-[#fce7f3] text-[#ec4899]' : 'text-[#1f1f22] hover:text-[#ec4899] hover:bg-[#fce7f3]/50' }}">
+                {{ __('Payments') }}
+            </a>
         </div>
 
         <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
+        <div class="pt-4 pb-1 border-t border-[#ec4899]/20">
             <div class="flex items-center px-4">
                 @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                     <div class="shrink-0 me-3">
-                        <img class="size-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                        <img class="size-10 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}"
+                            alt="{{ Auth::user()->name }}" />
                     </div>
                 @endif
 
                 <div>
-                    <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
-                    <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                    <div class="font-medium text-base text-[#1f1f22]">{{ Auth::user()->name }}</div>
+                    <div class="font-medium text-sm text-[#831843]">{{ Auth::user()->email }}</div>
                 </div>
             </div>
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
-                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                <x-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')"
+                    class="text-[#1f1f22] hover:text-[#ec4899]">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
 
                 @if (Laravel\Jetstream\Jetstream::hasApiFeatures())
-                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')">
+                    <x-responsive-nav-link href="{{ route('api-tokens.index') }}" :active="request()->routeIs('api-tokens.index')"
+                        class="text-[#1f1f22] hover:text-[#ec4899]">
                         {{ __('API Tokens') }}
                     </x-responsive-nav-link>
                 @endif
@@ -175,36 +220,38 @@
                 <form method="POST" action="{{ route('logout') }}" x-data>
                     @csrf
 
-                    <x-responsive-nav-link href="{{ route('logout') }}"
-                                   @click.prevent="$root.submit();">
+                    <x-responsive-nav-link href="{{ route('logout') }}" @click.prevent="$root.submit();"
+                        class="text-[#1f1f22] hover:text-[#ec4899]">
                         {{ __('Log Out') }}
                     </x-responsive-nav-link>
                 </form>
 
                 <!-- Team Management -->
                 @if (Laravel\Jetstream\Jetstream::hasTeamFeatures())
-                    <div class="border-t border-gray-200"></div>
+                    <div class="border-t border-[#ec4899]/20"></div>
 
-                    <div class="block px-4 py-2 text-xs text-gray-400">
+                    <div class="block px-4 py-2 text-xs text-[#831843]">
                         {{ __('Manage Team') }}
                     </div>
 
                     <!-- Team Settings -->
-                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}" :active="request()->routeIs('teams.show')">
+                    <x-responsive-nav-link href="{{ route('teams.show', Auth::user()->currentTeam->id) }}"
+                        :active="request()->routeIs('teams.show')" class="text-[#1f1f22] hover:text-[#ec4899]">
                         {{ __('Team Settings') }}
                     </x-responsive-nav-link>
 
                     @can('create', Laravel\Jetstream\Jetstream::newTeamModel())
-                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')">
+                        <x-responsive-nav-link href="{{ route('teams.create') }}" :active="request()->routeIs('teams.create')"
+                            class="text-[#1f1f22] hover:text-[#ec4899]">
                             {{ __('Create New Team') }}
                         </x-responsive-nav-link>
                     @endcan
 
                     <!-- Team Switcher -->
                     @if (Auth::user()->allTeams()->count() > 1)
-                        <div class="border-t border-gray-200"></div>
+                        <div class="border-t border-[#ec4899]/20"></div>
 
-                        <div class="block px-4 py-2 text-xs text-gray-400">
+                        <div class="block px-4 py-2 text-xs text-[#831843]">
                             {{ __('Switch Teams') }}
                         </div>
 

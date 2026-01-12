@@ -71,10 +71,8 @@
             style="animation: float 7s infinite; animation-delay: 4s;"></div>
 
         <!-- Right Side: Login Form -->
-        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative bg-[#1f1f22]">
-
-
-            <div class="w-full max-w-md space-y-8 relative z-10">
+        <div class="w-full lg:w-1/2 flex items-center justify-center p-6 sm:p-12 relative bg-[#1f1f22] overflow-y-auto">
+            <div class="w-full max-w-md space-y-8 relative z-10 my-auto">
                 <!-- Header -->
                 <div class="text-center lg:text-left">
                     <div
