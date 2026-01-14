@@ -13,24 +13,18 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-3 sm:-my-px sm:ms-10 sm:flex">
                     <a href="{{ route('dashboard') }}"
-                        class="relative inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out 
+                        class="relative inline-flex items-center px-5 py-3 border-b-4 text-sm font-bold font-extrabold leading-5 transition duration-300 ease-in-out 
                                         {{ request()->routeIs('dashboard')
                                             ? 'border-transparent bg-[#ffffff] text-[#ec4899] rounded-t-3xl'
                                             : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
-
                         {{ __('Dashboard') }}
-
                     </a>
                     <a href="#"
-                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('products.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
-                        {{ __('Products') }}
-                    </a>
-                    <a href="#"
-                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('cart.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-extrabold font-bold leading-5 transition duration-300 ease-in-out {{ request()->routeIs('cart.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
                         {{ __('Cart') }}
                     </a>
                     <a href="#"
-                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-medium leading-5 transition duration-300 ease-in-out {{ request()->routeIs('payments.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
+                        class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-extrabold leading-5 transition duration-300 ease-in-out {{ request()->routeIs('payments.*') ? 'border-[#ec4899] bg-[#fce7f3] text-[#ec4899] rounded-t-3xl' : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
                         {{ __('Payments') }}
                     </a>
                 </div>
@@ -93,6 +87,7 @@
                 @endif
 
                 <!-- Settings Dropdown -->
+
                 <div class="ms-3 relative">
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
@@ -103,18 +98,6 @@
                                         src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
-                                <span class="inline-flex rounded-md">
-                                    <button type="button"
-                                        class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-[#1f1f22] bg-[#fce7f3] hover:text-[#ec4899] focus:outline-none focus:bg-[#fce7f3] active:bg-[#fce7f3] transition ease-in-out duration-150">
-                                        {{ Auth::user()->name }}
-
-                                        <svg class="ms-2 -me-0.5 size-4" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-                                        </svg>
-                                    </button>
-                                </span>
                             @endif
                         </x-slot>
 
