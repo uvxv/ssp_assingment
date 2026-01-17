@@ -112,9 +112,13 @@
                 </div>
             </div>
 
-            <a href="#"
-                class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-[#FF2D20] mt-4 transition">
-                <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+            <a href="{{ route('dashboard') }}"
+                class="inline-flex items-center gap-2 text-sm text-gray-500 hover:text-black mt-4 transition">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="size-4">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+                </svg>
+                Continue Shopping
             </a>
         </div>
 
@@ -144,8 +148,14 @@
                 </div>
 
                 <button
-                    class="w-full bg-[#FF2D20] hover:bg-red-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-red-500/30 transition transform active:scale-95 flex justify-center items-center gap-2">
-                    Checkout <i class="fa-solid fa-arrow-right"></i>
+                    class="w-full bg-black hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-pink-500/30 transition transform active:scale-95 flex justify-center items-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="size-6">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M12 6v12m-3-2.818.879.659c1.171.879 3.07.879 4.242 0 1.172-.879 1.172-2.303 0-3.182C13.536 12.219 12.768 12 12 12c-.725 0-1.45-.22-2.003-.659-1.106-.879-1.106-2.303 0-3.182s2.9-.879 4.006 0l.415.33M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
+
+                    Checkout
                 </button>
 
                 <div class="mt-4 flex items-center justify-center gap-2 text-gray-400 text-xl">

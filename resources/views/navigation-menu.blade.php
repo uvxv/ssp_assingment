@@ -22,14 +22,14 @@
                     <a href="{{ route('cart.index') }}"
                         class="relative inline-flex items-center px-5 py-3 border-b-4 text-sm font-bold font-extrabold leading-5 transition duration-300 ease-in-out
                                             {{ request()->routeIs('cart.index') 
-                                            ? 'border-[#ec4899] bg-[#ffffff] text-[#ec4899] rounded-t-3xl' 
+                                            ? 'border-transparent bg-[#ffffff] text-[#ec4899] rounded-t-3xl' 
                                             : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
                         {{ __('Cart') }}
                     </a>
                     <a href="{{ route('payments.index') }}"
                         class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-extrabold leading-5 transition duration-300 ease-in-out 
                                             {{ request()->routeIs('payments.index') 
-                                            ? 'border-[#ec4899] bg-[#ffffff] text-[#ec4899] rounded-t-3xl' 
+                                            ? 'border-transparent bg-[#ffffff] text-[#ec4899] rounded-t-3xl' 
                                             : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
                         {{ __('Payments') }}
                     </a>
