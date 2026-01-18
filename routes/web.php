@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Oauth\GoogleController;
 use App\Livewire\CartComponent;
 use Livewire\Cart;
 use Livewire\Livewire;
@@ -24,4 +25,9 @@ Route::middleware([
     Route::get('/payments', function () {
         return;
     })->name('payments.index');
+});
+
+Route::controller(GoogleController::class)->group(function () {
+    Route::get('auth/google/redirect', 'redirect')->name('auth.google');
+    Route::get('auth/google/callback', 'callback');
 });

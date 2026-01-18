@@ -77,4 +77,4 @@
             @endif
         </div>
     </form>
-    </x-guest-layout>
+</x-login-layout>

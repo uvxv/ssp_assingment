@@ -104,7 +104,7 @@
 
                 <!-- Social Logins -->
                 <div class="grid grid-cols-2 gap-4">
-                    <button type="button"
+                    <button type="button" onclick="window.location.href='{{ route('auth.google') }}'"
                         class="flex items-center justify-center px-4 py-2.5 border border-white/10 rounded-xl shadow-sm bg-[#18181b] hover:bg-white/5 transition-colors duration-200">
                         <svg class="h-4 w-4" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                             <path
