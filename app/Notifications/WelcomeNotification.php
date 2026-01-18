@@ -3,9 +3,11 @@
 namespace App\Notifications;
 
 use Illuminate\Bus\Queueable;
+use App\Notifications\Channels\Sms;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 
 class WelcomeNotification extends Notification
 {
@@ -26,7 +28,7 @@ class WelcomeNotification extends Notification
      */
     public function via(object $notifiable): array
     {
-        return ['mail'];
+        return $notifiable->prefer_sms() ? ['database', Sms::class] : ['database'];
     }
 
     /**
@@ -50,5 +52,10 @@ class WelcomeNotification extends Notification
         return [
             //
         ];
+    }
+
+    public function toSms(object $notifiable)
+    {
+        return "Dear {$notifiable->first_name} {$notifiable->last_name}, Welcome to Tesher Harmony!";
     }
 }

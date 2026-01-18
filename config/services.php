@@ -46,4 +46,8 @@ return [
         'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
         'redirect' => env('APP_URL') . '/auth/facebook/callback',
     ],
+
+    'sms' => [
+        'api_key' => env('SMS_API_KEY')
+    ],
 ];

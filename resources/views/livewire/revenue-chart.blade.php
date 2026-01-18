@@ -1,3 +1,5 @@
 <div>
-    {{-- Close your eyes. Count to one. That is how long forever feels. --}}
+    <div class="relative h-72 w-full">
+    <canvas id="revenueChart" data-chart='{{ json_encode(["labels" => $labels, "data" => $data]) }}'></canvas>
+    </div>
 </div>

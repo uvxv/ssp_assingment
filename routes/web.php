@@ -37,3 +37,5 @@ Route::controller(FacebookController::class)->group(function () {
     Route::get('auth/facebook/redirect', 'redirect')->name('auth.facebook');
     Route::get('auth/facebook/callback', 'callback');
 });
+
+Route::view('/admin','admin.dashboard');
