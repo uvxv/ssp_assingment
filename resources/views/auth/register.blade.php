@@ -116,4 +116,4 @@
                 </button>
             </div>
         </form>
-</x-guest-layout>
+</x-register-layout>

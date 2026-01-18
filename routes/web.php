@@ -1,10 +1,11 @@
 <?php
 
-use App\Http\Controllers\Oauth\GoogleController;
-use App\Livewire\CartComponent;
 use Livewire\Cart;
 use Livewire\Livewire;
+use App\Livewire\CartComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Oauth\GoogleController;
+use App\Http\Controllers\Oauth\FacebookController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -30,4 +31,9 @@ Route::middleware([
 Route::controller(GoogleController::class)->group(function () {
     Route::get('auth/google/redirect', 'redirect')->name('auth.google');
     Route::get('auth/google/callback', 'callback');
+});
+
+Route::controller(FacebookController::class)->group(function () {
+    Route::get('auth/facebook/redirect', 'redirect')->name('auth.facebook');
+    Route::get('auth/facebook/callback', 'callback');
 });
