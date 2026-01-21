@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Models\User;
 use Laravel\Jetstream\Jetstream;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Validator;
 use App\Notifications\WelcomeNotification;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
