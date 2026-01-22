@@ -50,4 +50,9 @@ return [
     'sms' => [
         'api_key' => env('SMS_API_KEY')
     ],
+
+    'stripe' => [
+        'key' => env('STRIPE_KEY'),
+        'secret' => env('STRIPE_SECRET'),
+    ],
 ];

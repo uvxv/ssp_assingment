@@ -6,6 +6,7 @@ use App\Livewire\CartComponent;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\FacebookController;
+use App\Http\Controllers\CheckoutController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\EmailVerificationController;
@@ -61,3 +62,10 @@ Route::middleware([
 
 // Admin routes
 Route::view('/admin', 'admin.dashboard');
+
+// Payment Routes (protected)
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/checkout/{price}', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
+    Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout-cancel');
+});
