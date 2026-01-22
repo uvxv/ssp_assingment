@@ -65,7 +65,7 @@ Route::view('/admin', 'admin.dashboard');
 
 // Payment Routes (protected)
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/checkout/{price}', [CheckoutController::class, 'checkout'])->name('checkout');
+    Route::get('/checkout', [CheckoutController::class, 'checkout'])->name('checkout');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout-success');
     Route::get('/checkout/cancel', [CheckoutController::class, 'cancel'])->name('checkout-cancel');
 });

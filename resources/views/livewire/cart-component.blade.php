@@ -92,6 +92,7 @@
                         <span class="text-2xl font-bold text-gray-900"><span class="text-black font-bold">Rs</span>{{ $total }}</span>
                     </div>
 
+                    <a href="{{ route('checkout') }}">
                     <button
                         class="w-full bg-black hover:bg-pink-600 text-white font-bold py-3 px-4 rounded-lg shadow-lg shadow-pink-500/30 transition transform active:scale-95 flex justify-center items-center gap-2">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -101,6 +102,14 @@
                         </svg>
 
                         Checkout
+                    </button>
+                    </a>
+
+                    <button
+                        wire:click="clearCart"
+                        onclick="if(!confirm('Are you sure you want to clear your cart?')) event.stopImmediatePropagation();"
+                        class="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition">
+                        Clear Cart
                     </button>
 
                     <div class="mt-4 flex items-center justify-center gap-2 text-gray-400 text-xl">
