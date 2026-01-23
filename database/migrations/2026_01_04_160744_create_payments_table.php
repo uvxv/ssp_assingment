@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id('payment_id');
-            $table->foreignId('order_id')->references('order_id')->on('orders')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->references('id')->on('users')->onDelete('no action');
+            $table->string('stripe_payment_id');
             $table->decimal('amount', 10, 2);
             $table->timestamps();
         });

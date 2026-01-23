@@ -15,12 +15,13 @@ return new class extends Migration
             $table->uuid('order_id')->primary();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreignId('product_id')->references('product_id')->on('products')->onDelete('cascade');
+            $table->foreignid('payment_id')->references('payment_id')->on('payments')->onDelete('cascade');
             $table->decimal('total_amount', 10, 2);
             $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

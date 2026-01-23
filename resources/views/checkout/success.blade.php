@@ -57,7 +57,7 @@
                         <label class="text-[10px] font-bold uppercase tracking-widest text-[#831843] opacity-60">Order Reference</label>
                         <div class="flex items-center gap-3">
                             <div class="max-w-full overflow-conceal flex items-center gap-2">
-                                <p id="order-id" class="text-lg font-mono font-bold text-[#1f1f22] whitespace-nowrap">{{ $id }}...</p>
+                                <p id="order-id" class="text-lg font-mono font-bold text-[#1f1f22] whitespace-nowrap">{{ $id }}</p><span class="font-bold">....</span>
                             </div>
                             <button type="button" class="px-3 py-1 bg-custom-pink text-white rounded-md text-sm font-semibold hover:bg-[#db2777] select-none"
                                 onclick="(function(btn){const txt=document.getElementById('order-id').innerText||''; navigator.clipboard.writeText(txt).then(function(){btn.innerText='Copied'; setTimeout(function(){btn.innerText='Copy';},1200);}).catch(function(){alert('Copy failed')});})(this)">
@@ -67,7 +67,7 @@
                     </div>
                     <div class="space-y-1 md:text-right">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-[#831843] opacity-60">Transaction Date</label>
-                        <p id="order-date" class="text-lg font-bold text-[#1f1f22]">{{ $date }}</p>
+                        <p id="order-date" class="text-lg font-bold text-[#1f1f22]">{{ $date->day }}/{{ $date->month }}/{{ $date->year }}</p>
                     </div>
                 </div>
 

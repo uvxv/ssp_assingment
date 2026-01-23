@@ -18,8 +18,8 @@ class PaymentFactory extends Factory
     public function definition(): array
     {
         return [
-            'order_id' => Order::count() ? Order::inRandomOrder()->value('order_id') : Order::factory(),
             'user_id' => User::count() ? User::inRandomOrder()->value('id') : User::factory(),
+            'stripe_payment_id' => $this->faker->regexify('[A-Za-z0-9]{20}'),
             'amount' => $this->faker->randomFloat(2, 10, 5000),
         ];
     }
