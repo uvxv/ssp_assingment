@@ -107,7 +107,7 @@
 
                     <button
                         wire:click="clearCart"
-                        onclick="if(!confirm('Are you sure you want to clear your cart?')) event.stopImmediatePropagation();"
+                        wire:confirm="Are you sure you want to clear the cart?"
                         class="w-full mt-3 bg-gray-100 hover:bg-gray-200 text-gray-800 font-medium py-3 px-4 rounded-lg transition">
                         Clear Cart
                     </button>

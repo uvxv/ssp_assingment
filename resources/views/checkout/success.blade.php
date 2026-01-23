@@ -55,11 +55,19 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
                     <div class="space-y-1">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-[#831843] opacity-60">Order Reference</label>
-                        <p id="order-id" class="text-lg font-mono font-bold text-[#1f1f22]">TH-8291-XLCP</p>
+                        <div class="flex items-center gap-3">
+                            <div class="max-w-full overflow-conceal flex items-center gap-2">
+                                <p id="order-id" class="text-lg font-mono font-bold text-[#1f1f22] whitespace-nowrap">{{ $id }}...</p>
+                            </div>
+                            <button type="button" class="px-3 py-1 bg-custom-pink text-white rounded-md text-sm font-semibold hover:bg-[#db2777] select-none"
+                                onclick="(function(btn){const txt=document.getElementById('order-id').innerText||''; navigator.clipboard.writeText(txt).then(function(){btn.innerText='Copied'; setTimeout(function(){btn.innerText='Copy';},1200);}).catch(function(){alert('Copy failed')});})(this)">
+                                Copy
+                            </button>
+                        </div>
                     </div>
                     <div class="space-y-1 md:text-right">
                         <label class="text-[10px] font-bold uppercase tracking-widest text-[#831843] opacity-60">Transaction Date</label>
-                        <p id="order-date" class="text-lg font-bold text-[#1f1f22]">January 22, 2026</p>
+                        <p id="order-date" class="text-lg font-bold text-[#1f1f22]">{{ $date }}</p>
                     </div>
                 </div>
 
@@ -90,13 +98,13 @@
                 <div class="flex flex-col md:flex-row justify-between items-center gap-6 p-8 bg-custom-dark rounded-3xl text-white">
                     <div class="text-center md:text-left">
                         <p class="text-[#fce7f3] opacity-60 text-sm">Total Harmonized</p>
-                        <p class="text-4xl font-black text-white">$1,040.00</p>
+                        <p class="text-4xl font-black text-white">Rs{{ number_format($amount_total, 2) }}</p>
                     </div>
                     <div class="flex gap-4">
                         <button onclick="window.print()" class="px-8 py-4 bg-custom-pink hover:bg-[#db2777] rounded-2xl font-bold transition-all transform hover:scale-105">
                             Invoice PDF
                         </button>
-                        <a href="/" class="px-8 py-4 bg-[#1f1f22] border border-[#3f3f46] rounded-2xl font-bold hover:bg-black transition-all">
+                        <a href="{{ route('dashboard') }}" class="px-8 py-4 bg-[#1f1f22] border border-[#3f3f46] rounded-2xl font-bold hover:bg-black transition-all">
                             Storefront
                         </a>
                     </div>

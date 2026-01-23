@@ -54,10 +54,15 @@ class CheckoutController extends Controller
     public function success(Request $request)
     {
         $response = Cashier::stripe()->checkout->sessions->retrieve($request->query('session_id'),[
-            'expand' => ['line_items.data'],
+            'expand' => ['line_items.data','payment_intent.payment_method'],
         ]);
-        // dd($response);
-        return view('checkout.success', ['session' => $response]);
+        dd($response);
+        return view('checkout.success', ['amount_total' => $response->amount_total / 100, 
+                                        'id' => $response->payment_intent->id, 
+                                        'date' => now(),
+                                        'payment_method' => $response->payment_intent->payment_method->card->brand,
+                                        'last4' => $response->payment_intent->payment_method->card->last4,
+                                    ]);
     }
 
     public function cancel()

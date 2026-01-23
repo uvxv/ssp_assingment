@@ -21,7 +21,6 @@ class CartComponent extends Component
     {
         Cart::where('user_id', auth()->user()->id)->delete();
         $this->total = 0;
-        $this->emit('cartCleared');
     }
 
     public function render()
