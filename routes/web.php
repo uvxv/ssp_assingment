@@ -72,6 +72,10 @@ Route::prefix('admin')->group(function () {
     ->middleware('auth:admin')
     ->name('admin.dashboard');
 
+    Route::view('/inventory', 'admin.inventory')
+    ->middleware('auth:admin')
+    ->name('inventory');
+
     Route::post('/authenticate', [AdminController::class, 'authenticate'])->name('admin.authenticate');
     Route::post('/create', [AdminController::class, 'create'])->name('admin.create');
     
@@ -82,6 +86,10 @@ Route::prefix('admin')->group(function () {
     Route::post('/store-product', [ProductsController::class, 'store'])
     ->middleware('auth:admin')
     ->name('products.store');
+
+    Route::post('logout', [AdminController::class, 'logout'])
+    ->middleware('auth:admin')
+    ->name('admin.logout');
 });
 
 // Payment Routes (protected)

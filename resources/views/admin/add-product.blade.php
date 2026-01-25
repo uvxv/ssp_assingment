@@ -87,7 +87,7 @@
                                     <div class="mt-4 flex text-sm leading-6 text-gray-600 justify-center">
                                         <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-[#ec4899] focus-within:outline-none focus-within:ring-2 focus-within:ring-[#ec4899] focus-within:ring-offset-2 hover:text-[#db2777]">
                                             <span>Upload a file</span>
-                                            <input id="file-upload" name="image" type="file" class="sr-only" onchange="previewImage(event)">
+                                            <input id="file-upload" name="image" type="file" class="sr-only" onchange="previewImage(event)" required>
                                         </label>
                                         <p class="pl-1">or drag and drop</p>
                                     </div>

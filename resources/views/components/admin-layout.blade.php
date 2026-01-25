@@ -84,12 +84,12 @@
                         : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
                         Dashboard
                     </a>
-                    {{-- <a href="{{ route('admin.dashboard') }}"
-                        class="{{ request()->routeIs('admin.dashboard')
+                    <a href="{{ route('inventory') }}"
+                        class="{{ request()->routeIs('inventory')
                         ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
                         : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
                         Dashboard
-                    </a> --}}
+                    </a>
                     <a href="{{ route('products.form') }}"
                         class="{{ request()->routeIs('products.form')
                         ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
@@ -131,13 +131,33 @@
                     <!-- Profile Dropdown Trigger -->
                     <div class="relative ml-3">
                         <div>
-                            <button type="button"
-                                class="flex max-w-xs items-center rounded-full bg-[#1f1f22] text-sm focus:outline-none focus:ring-2 focus:ring-[#ec4899] focus:ring-offset-2 focus:ring-offset-[#18181b] transition-all hover:ring-2 hover:ring-[#ec4899]"
-                                id="user-menu-button">
-                                <span class="sr-only">Open user menu</span>
-                                <img class="h-8 w-8 rounded-full border border-[#ec4899]/30"
-                                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="">
-                            </button>
+                            <div x-data="{ open: false }" @keydown.escape="open = false" class="relative">
+                                <button type="button" @click="open = !open"
+                                    class="flex max-w-xs items-center rounded-full bg-[#1f1f22] text-sm focus:outline-none focus:ring-2 focus:ring-[#ec4899] focus:ring-offset-2 focus:ring-offset-[#18181b] transition-all hover:ring-2 hover:ring-[#ec4899]"
+                                    id="user-menu-button" :aria-expanded="open.toString()">
+                                    <span class="sr-only">Open user menu</span>
+                                    <img class="h-8 w-8 rounded-full border border-[#ec4899]/30"
+                                        src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="">
+                                </button>
+
+                                <!-- Dropdown -->
+                                <div x-cloak x-show="open" x-transition:enter="transition ease-out duration-100"
+                                    x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100"
+                                    x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100"
+                                    x-transition:leave-end="transform opacity-0 scale-95"
+                                    @click.away="open = false"
+                                    class="origin-top-right absolute right-0 mt-2 w-40 rounded-md shadow-lg py-1 bg-[#1f1f22] ring-1 ring-[#000]/40 z-50"
+                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button">
+                                    <form method="POST" action="{{ route('admin.logout') }}">
+                                        @csrf
+                                        <button type="submit"
+                                            class="w-full text-left px-4 py-2 text-sm text-gray-300 hover:bg-[#ec4899]/20 hover:text-white"
+                                            role="menuitem">
+                                            Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
