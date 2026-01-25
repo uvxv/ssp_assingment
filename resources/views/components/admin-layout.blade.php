@@ -56,7 +56,7 @@
 
 <body
     class="bg-[#fdf2f8] text-[#1f1f22] antialiased selection:bg-[#ec4899] selection:text-white min-h-screen flex flex-col">
-
+    <x-flash-banner/>
     <nav class="sticky top-0 z-50 bg-[#18181b] border-b border-[#ec4899]/30 shadow-lg shadow-[#ec4899]/5">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -78,25 +78,23 @@
 
                 <!-- 2. Desktop Navigation Links (Hidden on Mobile) -->
                 <div class="hidden md:flex items-center space-x-1">
-                    <a href="#"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-white bg-[#ec4899]/20 border border-[#ec4899]/50 transition-all duration-300">
+                    <a href="{{ route('admin.dashboard') }}"
+                        class="{{ request()->routeIs('admin.dashboard')
+                        ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
+                        : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
                         Dashboard
                     </a>
-                    <a href="#"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300">
-                        Users
-                    </a>
-                    <a href="#"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300">
-                        Songs Library
-                    </a>
-                    <a href="#"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300">
-                        Analytics
-                    </a>
-                    <a href="#"
-                        class="px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300">
-                        Settings
+                    {{-- <a href="{{ route('admin.dashboard') }}"
+                        class="{{ request()->routeIs('admin.dashboard')
+                        ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
+                        : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
+                        Dashboard
+                    </a> --}}
+                    <a href="{{ route('products.form') }}"
+                        class="{{ request()->routeIs('products.form')
+                        ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
+                        : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
+                        Add product
                     </a>
                 </div>
 

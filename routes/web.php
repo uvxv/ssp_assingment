@@ -2,13 +2,15 @@
 
 use Livewire\Cart;
 use Livewire\Livewire;
+use Illuminate\Http\Request;
 use App\Livewire\CartComponent;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Oauth\GoogleController;
 use App\Http\Controllers\Oauth\FacebookController;
-use App\Http\Controllers\CheckoutController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Auth\EmailVerificationController;
 
 // Public routes
@@ -61,7 +63,26 @@ Route::middleware([
 });
 
 // Admin routes
-Route::view('/admin', 'admin.dashboard');
+Route::prefix('admin')->group(function () {
+    Route::view('/', 'admin.login')->name('admin.home');
+    Route::view('/login', 'admin.login')->name('admin.login');
+    Route::view('/register', 'admin.register')->name('admin.register');
+
+    Route::view('/dashboard', 'admin.dashboard')
+    ->middleware('auth:admin')
+    ->name('admin.dashboard');
+
+    Route::post('/authenticate', [AdminController::class, 'authenticate'])->name('admin.authenticate');
+    Route::post('/create', [AdminController::class, 'create'])->name('admin.create');
+    
+    Route::view('/add', 'admin.add-product')
+    ->middleware('auth:admin')
+    ->name('products.form');
+
+    Route::post('/store-product', [ProductsController::class, 'store'])
+    ->middleware('auth:admin')
+    ->name('products.store');
+});
 
 // Payment Routes (protected)
 Route::middleware(['auth', 'verified'])->group(function () {

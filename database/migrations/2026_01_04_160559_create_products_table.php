@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('image_path')->nullable();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->decimal('price', 8, 2);
+            $table->decimal('price', 15, 2);
             $table->string('status')->check("status in ('available', 'not available')")->default('available');
             $table->timestamps();
         });
