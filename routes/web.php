@@ -4,6 +4,7 @@ use Livewire\Cart;
 use Livewire\Livewire;
 use Illuminate\Http\Request;
 use App\Livewire\CartComponent;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CheckoutController;
@@ -60,6 +61,17 @@ Route::middleware([
     Route::get('/payments', function () {
         return;
     })->name('payments.index')->middleware('verified');
+
+    Route::post('/logout',function(Request $request){
+        // override default logout to revoke token
+        Auth::guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/');
+
+    })
+    ->name('logout')
+    ->middleware('prelogout');
 });
 
 // Admin routes
@@ -85,7 +97,7 @@ Route::prefix('admin')->group(function () {
 
     Route::post('/store-product', [ProductsController::class, 'store'])
     ->middleware('auth:admin')
-    ->name('products.store');
+    ->name('create.product');
 
     Route::post('logout', [AdminController::class, 'logout'])
     ->middleware('auth:admin')

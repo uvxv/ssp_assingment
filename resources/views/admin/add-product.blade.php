@@ -19,7 +19,7 @@
                     </div>
                 </div>
 
-                <form id="product-form" action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <form id="product-form" action="{{ route('create.product') }}" method="POST" enctype="multipart/form-data" class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                     @csrf
                     <div class="lg:col-span-2 space-y-8">
                         

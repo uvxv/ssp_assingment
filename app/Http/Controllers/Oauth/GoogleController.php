@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class GoogleController extends Controller
 {
@@ -19,7 +20,6 @@ class GoogleController extends Controller
     public function callback()
     {
         $googleuser = Socialite::driver('google')->user();
-        // dd($googleuser);
         $user = User::updateorcreate(
             ['email' => $googleuser->getEmail()],
             [
@@ -30,6 +30,8 @@ class GoogleController extends Controller
             ]
         );
 
+        $token =  $user->createToken('auth_token')->plainTextToken;
+        Session::put('api_token', $token);
         Auth::login($user);
         return redirect()->route('dashboard');
     }

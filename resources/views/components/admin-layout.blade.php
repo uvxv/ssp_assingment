@@ -88,7 +88,7 @@
                         class="{{ request()->routeIs('inventory')
                         ? 'px-3 py-2 rounded-md text-sm font-medium text-white transition-all duration-300 bg-[#ec4899]/20 border border-[#ec4899]/50'
                         : 'px-3 py-2 rounded-md text-sm font-medium text-gray-300 hover:text-white hover:bg-[#1f1f22] hover:bg-opacity-50 transition-all duration-300' }}">
-                        Dashboard
+                        Inventory
                     </a>
                     <a href="{{ route('products.form') }}"
                         class="{{ request()->routeIs('products.form')

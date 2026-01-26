@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Admin;
 use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Auth\Access\Response;
@@ -11,56 +12,82 @@ class CartPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
-    {
-        return false;
-    }
+        public function viewAny($user): bool
+        {
+            if ($user instanceof Admin) {
+                return true;
+            }
+
+            return $user instanceof User;
+        }
+
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Cart $cart): bool
+    public function view($user, Cart $cart): bool
     {
-        return false;
+        if ($user instanceof Admin) {
+            return true;
+        }
+
+        return $user instanceof User && $cart->user_id === $user->id;
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create($user): bool
     {
-        return false;
+        return $user instanceof Admin || $user instanceof User;
     }
+
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Cart $cart): bool
+    public function update($user, Cart $cart): bool
     {
-        return false;
+        if ($user instanceof Admin) {
+            return true;
+        }
+
+        return $user instanceof User && $cart->user_id === $user->id;
     }
+
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Cart $cart): bool
+    public function delete($user, Cart $cart): bool
     {
-        return false;
+        if ($user instanceof Admin) {
+            return true;
+        }
+
+        return $user instanceof User && $cart->user_id === $user->id;
     }
+  
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Cart $cart): bool
+    public function restore($user, Cart $cart): bool
     {
-        return false;
+        if ($user instanceof Admin) {
+            return true;
+        }
+
+        return $user instanceof User && $cart->user_id === $user->id;
     }
+
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Cart $cart): bool
+    public function forceDelete($user, Cart $cart): bool
     {
-        return false;
+        return $user instanceof Admin;
     }
+
 }

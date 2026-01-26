@@ -25,7 +25,7 @@
                     <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-4 flex gap-4 items-stretch">
                         <div
                             class="w-20 h-20 md:w-28 md:h-28 bg-gray-100 rounded-lg flex-shrink-0 overflow-hidden border border-gray-100">
-                            <img src="{{ $item->product->image_path }}" alt="{{ $item->product->name }}"
+                            <img src="{{ asset('storage/' . $item->product->image_path) }}" alt="{{ $item->product->name }}"
                                 class="w-full h-full object-cover">
                         </div>
 

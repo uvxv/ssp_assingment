@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\Product;
 use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Auth\Access\Response;
 
 class ProductPolicy
@@ -11,56 +12,60 @@ class ProductPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny($user): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Product $product): bool
+    public function view($user, Product $product): bool
     {
-        return false;
+        if ($user instanceof Admin) {
+            return true;
+        }
+
+        return $product->status === 'available';
     }
 
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create($user): bool
     {
-        return false;
+        return $user instanceof Admin;
     }
 
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Product $product): bool
+    public function update($user, Product $product): bool
     {
-        return false;
+        return $user instanceof Admin && $user->admin_id === $product->admin_id;
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Product $product): bool
+    public function delete($user, Product $product): bool
     {
-        return false;
+        return $user instanceof Admin && $user->admin_id === $product->admin_id;
     }
 
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Product $product): bool
+    public function restore($user, Product $product): bool
     {
-        return false;
+        return $user instanceof Admin && $user->admin_id === $product->admin_id;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Product $product): bool
+    public function forceDelete($user, Product $product): bool
     {
-        return false;
+        return $user instanceof Admin && $user->admin_id === $product->admin_id;
     }
 }

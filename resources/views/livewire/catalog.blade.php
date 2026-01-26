@@ -33,7 +33,7 @@
                     <div
                         class="bg-white rounded-xl shadow-sm border border-gray-200 hover:shadow-md transition group overflow-hidden flex flex-col">
                         <div class="relative aspect-square bg-gray-100 overflow-hidden">
-                            <img src="{{ $product->image_path }}"
+                            <img src="{{ asset('storage/' . $product->image_path) }}"
                                 alt="Fender Stratocaster"
                                 class="object-cover w-full h-full group-hover:scale-105 transition duration-300">
                             <div
