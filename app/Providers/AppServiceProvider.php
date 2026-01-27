@@ -13,9 +13,11 @@ use App\Listeners\DeleteSanctumTokens;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
 use App\Http\Controllers\LogoutMechanism;
+use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
 use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
+use Illuminate\Support\Facades\Crypt;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -45,9 +47,15 @@ class AppServiceProvider extends ServiceProvider
             }
         });
 
+        ResetPassword::toMailUsing(function ($notifiable, $token) {
+            return (new MailMessage)
+                ->subject('Reset Your Password')
+                ->view('mailable.reset-password-mail', ['token' => $token, 'user' => $notifiable]);
+        });
+
         Event::listen(Login::class, function ($event) {
             $token = $event->user->createToken('api_token')->plainTextToken;
-            session()->put('api_token', $token);
+            session()->put('api_token', Crypt::encryptString($token));
     });
     }
 }

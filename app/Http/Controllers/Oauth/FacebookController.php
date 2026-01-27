@@ -9,6 +9,7 @@ use Laravel\Socialite\Socialite;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Crypt;
 
 class FacebookController extends Controller
 {
@@ -30,8 +31,8 @@ class FacebookController extends Controller
             ]
         );
 
-        $token =  $user->createToken('auth_token')->plainTextToken;
-        Session::put('api_token', $token);
+        $token =  $user->createToken('api_token')->plainTextToken;
+        Session::put('api_token', Crypt::encryptString($token));
         Auth::login($user);
         return redirect()->route('dashboard');
 

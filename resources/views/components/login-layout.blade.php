@@ -112,6 +112,7 @@
                         </svg>
                     </button>
                     <button type="button"
+                        onclick="window.location.href='{{route('auth.facebook')}}'"
                         class="flex items-center justify-center px-4 py-2.5 border border-white/10 rounded-xl shadow-sm bg-[#18181b] hover:bg-white/5 transition-colors duration-200">
                         <svg class="h-5 w-5" aria-hidden="true" fill="currentColor" viewBox="0 0 24 24">
                             <path fill-rule="evenodd"
