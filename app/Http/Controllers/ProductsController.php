@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Crypt;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class ProductsController extends Controller
 { // used a dedicated products controller cuz the teh admin.add-product route return a full page view
@@ -25,17 +28,16 @@ class ProductsController extends Controller
             $validatedData['image_path'] = $imagePath;
         }
 
-        // Create a new product record in the database
-        Product::create([
-            'admin_id' => auth()->guard('admin')->id(),
-            'name' => $validatedData['name'],
-            'description' => $validatedData['description'],
-            'price' => $validatedData['price'],
-            'status' => $validatedData['status'],
-            'image_path' => $validatedData['image_path'] ?? null,
-        ]);
+        // dd(Crypt::decryptString(session()->get('admin_token'))); 
 
-        // Redirect back with a success message
+        // Create a new product record in the database
+        $status = Http::withToken(Crypt::decryptString(session()->get('admin_token')))
+                    ->post(config('app.url') . '/api/products', array_merge($validatedData, ['admin_id' => auth('admin')->id()]));
+
+        if ($status->failed()) {
+            return;
+        }
+        
         return redirect()->back()->with('success', 'Product added successfully!');
     }
 

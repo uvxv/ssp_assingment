@@ -19,8 +19,6 @@ class PaymentResource extends JsonResource
             'user_id' => $this->user_id,
             'stripe_payment_id' => $this->stripe_payment_id,
             'amount' => (float) $this->amount,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
         ];
     }
 }

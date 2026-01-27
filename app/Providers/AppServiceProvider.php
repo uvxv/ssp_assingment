@@ -54,8 +54,15 @@ class AppServiceProvider extends ServiceProvider
         });
 
         Event::listen(Login::class, function ($event) {
-            $token = $event->user->createToken('api_token')->plainTextToken;
-            session()->put('api_token', Crypt::encryptString($token));
-    });
+            if ($event->guard === 'web') { 
+                $token = $event->user->createToken('api_token')->plainTextToken;
+                Session::put('user_token', Crypt::encryptString($token));
+            }
+
+            if ($event->guard === 'admin') {
+                $token = $event->user->createToken('admin_token')->plainTextToken;
+                Session::put('admin_token', Crypt::encryptString($token));
+            }
+        });
     }
 }

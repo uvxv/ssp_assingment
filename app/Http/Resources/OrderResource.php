@@ -21,8 +21,7 @@ class OrderResource extends JsonResource
             'payment_id' => $this->payment_id,
             'total_amount' => (float) $this->total_amount,
             'status' => $this->status,
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+
         ];
     }
 }

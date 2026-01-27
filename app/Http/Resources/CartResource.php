@@ -18,8 +18,7 @@ class CartResource extends JsonResource
             'user_id' => $this->user_id,
             'product_id' => $this->product_id,
             'product' => ProductResource::whenLoaded('product'),
-            'created_at' => $this->created_at,
-            'updated_at' => $this->updated_at,
+
         ];
     }
 }

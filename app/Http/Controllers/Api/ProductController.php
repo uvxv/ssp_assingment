@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ProductResource;
 use App\Models\Product;
 use Illuminate\Http\Request;
 
@@ -10,45 +11,79 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return response()->json(Product::paginate(15));
+        $user = request()->user();
+
+        if(!$user->can('viewAny', Product::class)) {
+            $products = Product::where('admin_id', $user->id)->get();
+            return ProductResource::collection($products);
+        }
+
+        return ProductResource::collection(Product::all());
     }
 
     public function show(Product $product)
     {
-        return response()->json($product);
+        $user = request()->user();
+
+        if(!$user->can('view', $product)) {
+            return response()->json(['message' => 'failed'], 403);
+        }
+        
+        return new ProductResource($product);
     }
 
     public function store(Request $request)
     {
+        $user = $request->user();
+
+        if(!$user->can('create', Product::class)) {
+            return response()->json(['message' => 'failed'], 403);
+        }
+
         $data = $request->validate([
+            'admin_id' => 'required|integer|exists:admins,admin_id',
+            'image_path' => 'nullable|string',
             'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'price' => 'required|numeric',
-            'status' => 'nullable|string',
+            'status' => 'nullable|in:available,not available',
         ]);
 
         $product = Product::create($data + ['admin_id' => auth('admin')->id() ?? null]);
 
-        return response()->json($product, 201);
+        return response()->json(['message' => 'success'], 201);
     }
 
     public function update(Request $request, Product $product)
     {
+        $user = $request->user();
+
+        if(!$user->can('update', $product)) {
+            return response()->json(['message' => 'failed'], 403);
+        }
+
         $data = $request->validate([
-            'name' => 'sometimes|required|string|max:255',
-            'description' => 'nullable|string',
-            'price' => 'sometimes|required|numeric',
-            'status' => 'nullable|string',
+            'image_path' => 'nullable|nullable|string',
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'price' => 'required|numeric',
+            'status' => 'required|in:available,not available',
         ]);
 
-        $product->update($data);
+        Product::where('product_id', $product->product_id)->update($data);
 
-        return response()->json($product);
+        return response()->json(['message' => 'success'], 200);
     }
 
     public function destroy(Product $product)
     {
+        $request = request()->user();
+
+        if(!$request->can('delete', $product)) {
+            return response()->json(['message' => 'failed'], 403);
+        }
         $product->delete();
-        return response()->json(null, 204);
+        
+        return response()->json(['message' => 'success'], 200);
     }
 }
