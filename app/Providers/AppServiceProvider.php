@@ -4,17 +4,18 @@ namespace App\Providers;
 
 use App\Models\User;
 use Laravel\Fortify\Fortify;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Auth\Events\Logout;
-use App\Listeners\DeleteSanctumTokens;
-use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Event;
+use App\Http\Responses\LogoutResponse;
+use App\Listeners\DeleteSanctumTokens;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\ServiceProvider;
+use App\Http\Controllers\LogoutMechanism;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Http\Responses\LogoutResponse;
 use Laravel\Fortify\Contracts\LogoutResponse as LogoutResponseContract;
-use App\Http\Controllers\LogoutMechanism;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -40,10 +41,13 @@ class AppServiceProvider extends ServiceProvider
             $user = User::where('email', $request->email)->first();
 
             if ($user && Hash::check($request->password, $user->password)) {
-                $token = $user->createToken('auth_token')->plainTextToken;
-                Session::put('api_token', $token);
                 return $user;
             }
         });
+
+        Event::listen(Login::class, function ($event) {
+            $token = $event->user->createToken('api_token')->plainTextToken;
+            session()->put('api_token', $token);
+    });
     }
 }

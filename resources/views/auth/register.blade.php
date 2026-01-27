@@ -45,6 +45,26 @@
                 @enderror
             </div>
 
+            <!-- Home Address -->
+            <div>
+                <label for="address" class="block text-sm font-medium text-[#fce7f3] mb-2">Address</label>
+                <div class="relative group">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <svg class="h-5 w-5 text-[#fce7f3]/50 group-focus-within:text-[#ec4899] transition-colors"
+                            xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+                            <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                            <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                        </svg>
+                    </div>
+                    <input id="address" name="address" type="text" autocomplete="address" required value="{{ old('address') }}"
+                        class="block w-full pl-10 pr-4 py-2.5 border border-white/20 rounded-lg leading-5 bg-[#27272a] text-[#fdf2f8] placeholder-[#fce7f3]/50 focus:outline-none focus:ring-2 focus:ring-[#ec4899] focus:border-transparent transition duration-200 sm:text-sm"
+                        placeholder="123 Main St" required>
+                </div>
+                @error('address')
+                    <p class="text-xs text-red-500 mt-1">{{ $message }}</p>
+                @enderror
+            </div>
+
             <!-- Phone Number Input -->
             <div>
                 <label for="phone" class="block text-sm font-medium text-[#fce7f3] mb-2">Phone Number</label>
