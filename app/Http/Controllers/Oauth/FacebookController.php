@@ -32,7 +32,7 @@ class FacebookController extends Controller
         );
 
         $token =  $user->createToken('api_token')->plainTextToken;
-        Session::put('user_token', Crypt::encryptString($token));
+        Session::put('user_token', Crypt::encrypt($token));
         Auth::login($user);
         return redirect()->route('dashboard');
 

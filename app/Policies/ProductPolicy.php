@@ -14,7 +14,7 @@ class ProductPolicy
      */
     public function viewAny($user): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,7 @@ class ProductPolicy
      */
     public function view($user, Product $product): bool
     {
-        if ($user instanceof Admin) {
-            return true;
-        }
-
-        return $product->status === 'available';
+        return $product->admin_id == $user->admin_id;
     }
 
     /**
@@ -42,7 +38,7 @@ class ProductPolicy
      */
     public function update($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id === $product->admin_id;
+        return $user instanceof Admin && $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -50,7 +46,7 @@ class ProductPolicy
      */
     public function delete($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id === $product->admin_id;
+        return $user instanceof Admin && $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -58,7 +54,7 @@ class ProductPolicy
      */
     public function restore($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id === $product->admin_id;
+        return $user instanceof Admin && $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -66,6 +62,6 @@ class ProductPolicy
      */
     public function forceDelete($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id === $product->admin_id;
+        return $user instanceof Admin && $user->admin_id == $product->admin_id;
     }
 }

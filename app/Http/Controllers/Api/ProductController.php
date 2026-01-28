@@ -14,11 +14,11 @@ class ProductController extends Controller
         $user = request()->user();
 
         if(!$user->can('viewAny', Product::class)) {
-            $products = Product::where('admin_id', $user->id)->get();
-            return ProductResource::collection($products);
+            $products = Product::where('admin_id', $user->id)->paginate(10);
+            return ProductResource::collection($products::paginate(10));
         }
 
-        return ProductResource::collection(Product::all());
+        return ProductResource::collection(Product::paginate(10));
     }
 
     public function show(Product $product)
@@ -71,19 +71,17 @@ class ProductController extends Controller
         ]);
 
         Product::where('product_id', $product->product_id)->update($data);
-
         return response()->json(['message' => 'success'], 200);
     }
 
     public function destroy(Product $product)
     {
-        $request = request()->user();
+        $request = request()->user(); 
 
-        if(!$request->can('delete', $product)) {
+        if($request->cannot('delete', $product)) {
             return response()->json(['message' => 'failed'], 403);
-        }
+        }  
         $product->delete();
-        
         return response()->json(['message' => 'success'], 200);
     }
 }

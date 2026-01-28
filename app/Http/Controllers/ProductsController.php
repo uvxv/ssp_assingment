@@ -31,8 +31,9 @@ class ProductsController extends Controller
         // dd(Crypt::decryptString(session()->get('admin_token'))); 
 
         // Create a new product record in the database
-        $status = Http::withToken(Crypt::decryptString(session()->get('admin_token')))
-                    ->post(config('app.url') . '/api/products', array_merge($validatedData, ['admin_id' => auth('admin')->id()]));
+        $status = Http::withToken(Crypt::decrypt(session()->get('admin_token')))
+                    ->post(config('app.url') . '/api/products', array_merge($validatedData, ['admin_id' => auth('admin')->id()]))
+;
 
         if ($status->failed()) {
             return;
