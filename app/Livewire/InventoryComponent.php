@@ -9,6 +9,7 @@ use Livewire\WithPagination;
 use Livewire\WithoutUrlPagination;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryComponent extends Component
 {
@@ -18,8 +19,10 @@ class InventoryComponent extends Component
 
     public function delete($productId)
     {
+        Storage::disk('public')->delete(Product::find($productId)->image_path);
         Http::withToken(Crypt::decrypt(session('admin_token')))
             ->delete(config('app.url') . '/api/products/' . $productId);
+        
         return;
     }
 
