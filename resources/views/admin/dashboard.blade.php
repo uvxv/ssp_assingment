@@ -11,10 +11,12 @@
                     class="px-4 py-2 bg-white text-gray-600 border border-[#fce7f3] hover:bg-[#fdf2f8] rounded-lg shadow-sm transition-all duration-300 flex items-center gap-2">
                     <span>Export Report</span>
                 </button>
+                <a href="{{ route('products.form') }}">
                 <button
                     class="px-4 py-2 bg-[#db2777] hover:bg-[#ec4899] text-white rounded-lg shadow-lg shadow-[#ec4899]/30 transition-all duration-300 flex items-center gap-2">
                     <span>Add Product</span>
                 </button>
+                </a>
             </div>
         </div>
 
@@ -33,7 +35,7 @@
                     </div>
                     <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-600 rounded-full">12.5%</span>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-800">$128,430</h3>
+                <h3 class="text-3xl font-bold text-gray-800">LKR {{ number_format($totalRevenue, 2) }}</h3>
                 <p class="text-sm text-gray-500">Total Revenue</p>
             </div>
 
@@ -50,7 +52,7 @@
                     </div>
                     <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-600 rounded-full">+4.2%</span>
                 </div>
-                <h3 class="text-3xl font-bold text-gray-800">1,208</h3>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $soldCount }}</h3>
                 <p class="text-sm text-gray-500">Instruments Sold</p>
             </div>
 
@@ -65,28 +67,15 @@
                                 d="M3.75 12h16.5m-16.5 3.75h16.5M3.75 19.5h16.5M5.625 4.5h12.75a1.875 1.875 0 010 3.75H5.625a1.875 1.875 0 010-3.75z" />
                         </svg>
                     </div>
-                    <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-600 rounded-full">12 Low
-                        Stock</span>
+                    @if($availableCount <= 5)  
+                    <span class="text-xs font-semibold px-2 py-1 bg-red-100 text-red-600 rounded-full">
+                        Low Stock</span>
+                    @else
+                    <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-600 rounded-full">Stable</span>
+                    @endif
                 </div>
-                <h3 class="text-3xl font-bold text-gray-800">3,450</h3>
+                <h3 class="text-3xl font-bold text-gray-800">{{ $availableCount }}</h3>
                 <p class="text-sm text-gray-500">Items in Stock</p>
-            </div>
-
-            <!-- Avg Order Value -->
-            <div
-                class="bg-white p-6 rounded-2xl shadow-sm border border-[#fce7f3] hover:shadow-md transition-shadow duration-300">
-                <div class="flex items-center justify-between mb-4">
-                    <div class="p-3 bg-[#fdf2f8] rounded-xl text-[#db2777]">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-6 h-6">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
-                        </svg>
-                    </div>
-                    <span class="text-xs font-semibold px-2 py-1 bg-green-100 text-green-600 rounded-full">+1.2%</span>
-                </div>
-                <h3 class="text-3xl font-bold text-gray-800">$345</h3>
-                <p class="text-sm text-gray-500">Avg. Order Value</p>
             </div>
         </div>
 
@@ -131,55 +120,59 @@
                 <button class="text-sm text-[#db2777] hover:text-[#831843] font-medium">View All Orders</button>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead class="bg-[#fdf2f8]/50 text-xs uppercase text-gray-500 font-semibold">
-                        <tr>
-                            <th class="px-6 py-4">Product</th>
-                            <th class="px-6 py-4">Customer</th>
-                            <th class="px-6 py-4">Date</th>
-                            <th class="px-6 py-4">Amount</th>
-                            <th class="px-6 py-4">Status</th>
-                            <th class="px-6 py-4 text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-[#fdf2f8] text-sm">
-                        <!-- Order Row 1 -->
-                        <tr class="hover:bg-[#fdf2f8]/30 transition-colors duration-200">
-                            <td class="px-6 py-4 font-medium text-gray-800 flex items-center gap-3">
-                                <div
-                                    class="w-10 h-10 rounded-lg bg-[#fce7f3] flex items-center justify-center text-[#db2777]">
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M9 9l10.5-3m0 6.553v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 11-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163zm0 0V2.25L9 5.25v10.303m0 0v3.75a2.25 2.25 0 01-1.632 2.163l-1.32.377a1.803 1.803 0 01-.99-3.467l2.31-.66a2.25 2.25 0 001.632-2.163z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <div class="font-bold">Gibson Les Paul</div>
-                                    <div class="text-xs text-gray-500">Electric Guitars</div>
-                                </div>
-                            </td>
-                            <td class="px-6 py-4 text-gray-600">John Doe</td>
-                            <td class="px-6 py-4 text-gray-500">Oct 24, 2023</td>
-                            <td class="px-6 py-4 font-medium text-gray-800">$2,499.00</td>
-                            <td class="px-6 py-4">
-                                <span
-                                    class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-100">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> Processing
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 text-right">
-                                <button class="text-gray-400 hover:text-[#db2777] transition-colors"><svg
-                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                        stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                            d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                    </svg></button>
-                            </td>
-                        </tr>
-                        <!-- More rows would go here -->
-                    </tbody>
-                </table>
+                @if($productsSold->count() > 0)
+                    @foreach ($productsSold as $item)
+                        <table class="w-full text-left">
+                            <thead class="bg-[#fdf2f8]/50 text-xs uppercase text-gray-500 font-semibold">
+                                <tr>
+                                    <th class="px-6 py-4">Product</th>
+                                    <th class="px-6 py-4">Customer</th>
+                                    <th class="px-6 py-4">Date</th>
+                                    <th class="px-6 py-4">Amount</th>
+                                    <th class="px-6 py-4">Status</th>
+                                    <th class="px-6 py-4 text-right">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-[#fdf2f8] text-sm">
+                                <!-- Order Row 1 -->
+                                <tr class="hover:bg-[#fdf2f8]/30 transition-colors duration-200">
+                                    <td class="px-6 py-4 font-medium text-gray-800 flex items-center gap-3">
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-[#fce7f3] flex items-center justify-center text-[#db2777]">
+                                            <img src="{{ asset($item->product->image_path) }}" alt="Gibson Les Paul"
+                                                class="w-8 h-8 object-contain">
+                                        </div>
+                                        <div>
+                                            <div class="font-bold">{{ $item->product->name }}</div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 text-gray-600">{{ $item->customer->name }}</td>
+                                    <td class="px-6 py-4 text-gray-500">{{ $item->created_at->format('M d, Y') }}</td>
+                                    <td class="px-6 py-4 font-medium text-gray-800">LKR {{ number_format($item->total_amount, 2) }}</td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-100">
+                                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> {{ ucfirst($item->status) }}
+                                        </span>
+                                    </td>
+                                    <td class="px-6 py-4 text-right">
+                                        <button class="text-gray-400 hover:text-[#db2777] transition-colors"><svg
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+                                            </svg></button>
+                                    </td>
+                                </tr>
+                                <!-- More rows would go here -->
+                            </tbody>
+                        </table>
+                    @endforeach
+                @else
+                    <div class="p-6 text-center text-gray-500">
+                        No recent orders found.
+                    </div>
+                @endif
             </div>
         </div>
     </div> 

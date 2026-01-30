@@ -18,7 +18,7 @@ class ProductController extends Controller
             return ProductResource::collection($products::paginate(10));
         }
 
-        return ProductResource::collection(Product::paginate(10));
+        return ProductResource::collection(Product::paginate(2));
     }
 
     public function show(Product $product)
@@ -63,11 +63,11 @@ class ProductController extends Controller
         }
 
         $data = $request->validate([
-            'image_path' => 'nullable|nullable|string',
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'price' => 'required|numeric',
-            'status' => 'required|in:available,not available',
+            'image_path' => 'nullable|string',
+            'name' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
+            'price' => 'nullable|numeric',
+            'status' => 'nullable|in:available,not available',
         ]);
 
         Product::where('product_id', $product->product_id)->update($data);
@@ -76,9 +76,9 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        $request = request()->user(); 
+        $user = request()->user(); 
 
-        if($request->cannot('delete', $product)) {
+        if($user->cannot('delete', $product)) {
             return response()->json(['message' => 'failed'], 403);
         }  
         $product->delete();

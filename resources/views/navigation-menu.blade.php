@@ -26,12 +26,12 @@
                                             : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
                         {{ __('Cart') }}
                     </a>
-                    <a href="{{ route('payments.index') }}"
+                    <a href="{{ route('orders') }}"
                         class="inline-flex items-center px-5 py-3 border-b-4 text-sm font-extrabold leading-5 transition duration-300 ease-in-out 
-                                            {{ request()->routeIs('payments.index') 
+                                            {{ request()->routeIs('orders') 
                                             ? 'border-transparent bg-[#ffffff] text-[#ec4899] rounded-t-3xl' 
                                             : 'border-transparent text-[#1f1f22] hover:text-[#ec4899] hover:border-[#ec4899]/30' }}">
-                        {{ __('Payments') }}
+                        {{ __('Orders') }}
                     </a>
                 </div>
             </div>

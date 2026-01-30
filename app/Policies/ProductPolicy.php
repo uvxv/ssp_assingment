@@ -14,6 +14,9 @@ class ProductPolicy
      */
     public function viewAny($user): bool
     {
+        if ($user instanceof Admin) {
+            return true;
+        }
         return false;
     }
 

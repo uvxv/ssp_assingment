@@ -110,6 +110,17 @@
                                     </td>
                                     <td class="px-6 py-4 text-right">
                                         <div class="flex items-center justify-end gap-2">
+                                            <button wire:click="toggleStatus({{ $product->product_id }})"
+                                                wire:loading.attr="disabled"
+                                                class="p-1.5 rounded-md hover:bg-gray-50 text-gray-400 hover:text-[#0ea5a4] transition-colors"
+                                                title="Toggle availability">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M3 12a9 9 0 1118 0 9 9 0 01-18 0zm9-4v4l3 3" />
+                                                </svg>
+                                            </button>
+
                                             <button wire:click="delete({{ $product->product_id }})"
                                                 wire:confirm="Are you sure you want to delete this product?"
                                                 class="p-1.5 rounded-md hover:bg-red-50 text-gray-400 hover:text-red-500 transition-colors"
@@ -135,9 +146,9 @@
                     </tbody>
                 </table>
             </div>
-
             <!-- Pagination (Visual Simulation) -->
             @if ($products->hasPages())
+                
                 <div class="px-6 py-4 border-t border-[#fce7f3] bg-[#fdf2f8]/30 flex items-center justify-between">
                     <span class="text-sm text-gray-500">
                         Showing {{ $products->firstItem() }}-{{ $products->lastItem() }} of {{ $products->total() }}

@@ -15,7 +15,7 @@ class PaymentController extends Controller
         $user = request()->user();
 
         if(!$user->can('viewAny', Payment::class)) {
-            $payments = Payment::where('user_id', $user->id)->get();
+            $payments = Payment::where('user_id', $user->id)->paginate(10);
             return PaymentResource::collection($payments);
         }
 

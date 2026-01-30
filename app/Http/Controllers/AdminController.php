@@ -3,11 +3,45 @@
 namespace App\Http\Controllers;
 
 use App\Models\Admin;
+use App\Models\Order;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
+    public function index()
+    {
+        $adminId = auth('admin')->id();
+
+        // Total revenue from completed orders for this admin's products
+        $totalRevenue = Order::selectRaw('SUM(orders.total_amount) as total')
+            ->join('products', 'orders.product_id', '=', 'products.product_id')
+            ->where('products.admin_id', $adminId)
+            ->where('orders.status', 'completed')
+            ->value('total') ?? 0;
+        
+        $productsSold = Order::join('products', 'orders.product_id', '=', 'products.product_id')
+            ->where('products.admin_id', $adminId)
+            ->where('orders.status', 'completed')
+            ->get();
+
+        // number of avalable items in stock for this admin
+        $availableCount = Product::where('admin_id', $adminId)
+            ->where('status', 'available')
+            ->count();
+
+        // Number of sold itemss (completed orders) for this admin's products
+        $soldCount = Order::join('products', 'orders.product_id', '=', 'products.product_id')
+            ->where('products.admin_id', $adminId)
+            ->where('orders.status', 'completed')
+            ->count();
+
+        return view('admin.dashboard', compact('totalRevenue', 'availableCount', 'soldCount', 'productsSold'));
+    }
+
+
     public function create(Request $request)
     {
         $request->validate([

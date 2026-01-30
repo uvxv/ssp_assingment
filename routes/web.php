@@ -7,6 +7,7 @@ use App\Livewire\CartComponent;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AllOrdersController;
 use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\ProductsController;
 use App\Http\Controllers\Oauth\GoogleController;
@@ -58,9 +59,8 @@ Route::middleware([
         return view('cart');
     })->name('cart.index');
     
-    Route::get('/payments', function () {
-        return;
-    })->name('payments.index')->middleware('verified');
+    Route::get('/orders',[AllOrdersController::class, 'index'])
+    ->name('orders')->middleware('verified');
 
     Route::post('/logout',function(Request $request){
         // override default logout to revoke token
@@ -80,7 +80,7 @@ Route::prefix('admin')->group(function () {
     Route::view('/login', 'admin.login')->name('admin.login');
     Route::view('/register', 'admin.register')->name('admin.register');
 
-    Route::view('/dashboard', 'admin.dashboard')
+    Route::get('/dashboard', [AdminController::class, 'index'] )
     ->middleware('auth:admin')
     ->name('admin.dashboard');
 

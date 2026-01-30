@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Crypt;
@@ -18,25 +19,34 @@ class ProductsController extends Controller
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric|min:0',
-            'status' => 'required|in:available,available',
+            'status' => 'required|in:available,not_available',
             'image' => 'nullable|image|max:2048', 
         ]);
 
         // Handle file upload if an image is provided
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('product_images', 'public');
+            unset($validatedData['image']);
             $validatedData['image_path'] = $imagePath;
         }
 
-        // dd(Crypt::decryptString(session()->get('admin_token'))); 
+        
+        // dd($validatedData);
+        
 
-        // Create a new product record in the database
+        // Create a new product record in the database using api
         $status = Http::withToken(Crypt::decrypt(session()->get('admin_token')))
-                    ->post(config('app.url') . '/api/products', array_merge($validatedData, ['admin_id' => auth('admin')->id()]))
-;
+                    ->post(config('app.url') . '/api/products', [
+                        'admin_id' => auth('admin')->id(),
+                        'name' => $validatedData['name'],
+                        'description' => $validatedData['description'],
+                        'price' => $validatedData['price'],
+                        'status' => $validatedData['status'],
+                        'image_path' => $validatedData['image_path'],
+                    ]);
 
         if ($status->failed()) {
-            return;
+            return dd($status);
         }
         
         return redirect()->back()->with('success', 'Product added successfully!');

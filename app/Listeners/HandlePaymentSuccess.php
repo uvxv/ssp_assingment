@@ -27,7 +27,7 @@ class HandlePaymentSuccess
     {
         $items = $event->ItemsList;
         $stripeId = $event->stripeId;
-        $amountTotal = $event->amountTotal;
+        $amountTotal = $event->amountTotal / 100;
 
         $payment = Payment::create([
             'user_id' => auth()->id(),
