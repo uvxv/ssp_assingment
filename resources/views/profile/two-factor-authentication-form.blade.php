@@ -8,7 +8,7 @@
     </x-slot>
 
     <x-slot name="content">
-        <h3 class="text-lg font-medium text-gray-900">
+        <h3 class="text-lg font-medium text-[#831843]">
             @if ($this->enabled)
                 @if ($showingConfirmation)
                     {{ __('Finish enabling two factor authentication.') }}
@@ -38,7 +38,7 @@
                     </p>
                 </div>
 
-                <div class="mt-4 p-2 inline-block bg-white">
+                <div class="mt-4 p-2 inline-block bg-[#fdf2f8] ring-1 ring-[#fce7f3] rounded-md">
                     {!! $this->user->twoFactorQrCodeSvg() !!}
                 </div>
 
@@ -50,9 +50,9 @@
 
                 @if ($showingConfirmation)
                     <div class="mt-4">
-                        <x-label for="code" value="{{ __('Code') }}" />
+                        <x-label for="code" value="{{ __('Code') }}" class="block text-sm font-medium text-[#831843] mb-2" />
 
-                        <x-input id="code" type="text" name="code" class="block mt-1 w-1/2" inputmode="numeric" autofocus autocomplete="one-time-code"
+                        <x-input id="code" type="text" name="code" class="block mt-1 w-1/2 border border-[#fce7f3] rounded-lg bg-white text-gray-800 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#ec4899]" inputmode="numeric" autofocus autocomplete="one-time-code"
                             wire:model="code"
                             wire:keydown.enter="confirmTwoFactorAuthentication" />
 
@@ -68,7 +68,7 @@
                     </p>
                 </div>
 
-                <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-gray-100 rounded-lg">
+                <div class="grid gap-1 max-w-xl mt-4 px-4 py-4 font-mono text-sm bg-[#fdf2f8] ring-1 ring-[#fce7f3] rounded-lg">
                     @foreach (json_decode(decrypt($this->user->two_factor_recovery_codes), true) as $code)
                         <div>{{ $code }}</div>
                     @endforeach
@@ -79,26 +79,26 @@
         <div class="mt-5">
             @if (! $this->enabled)
                 <x-confirms-password wire:then="enableTwoFactorAuthentication">
-                    <x-button type="button" wire:loading.attr="disabled">
+                    <x-button type="button" wire:loading.attr="disabled" class="bg-[#db2777] hover:bg-[#ec4899] text-white">
                         {{ __('Enable') }}
                     </x-button>
                 </x-confirms-password>
             @else
                 @if ($showingRecoveryCodes)
                     <x-confirms-password wire:then="regenerateRecoveryCodes">
-                        <x-secondary-button class="me-3">
+                        <x-secondary-button class="me-3 bg-white border border-[#fce7f3] text-gray-700 hover:bg-[#fdf2f8]">
                             {{ __('Regenerate Recovery Codes') }}
                         </x-secondary-button>
                     </x-confirms-password>
                 @elseif ($showingConfirmation)
                     <x-confirms-password wire:then="confirmTwoFactorAuthentication">
-                        <x-button type="button" class="me-3" wire:loading.attr="disabled">
+                        <x-button type="button" class="me-3 bg-[#db2777] hover:bg-[#ec4899] text-white" wire:loading.attr="disabled">
                             {{ __('Confirm') }}
                         </x-button>
                     </x-confirms-password>
                 @else
                     <x-confirms-password wire:then="showRecoveryCodes">
-                        <x-secondary-button class="me-3">
+                        <x-secondary-button class="me-3 bg-white border border-[#fce7f3] text-gray-700 hover:bg-[#fdf2f8']">
                             {{ __('Show Recovery Codes') }}
                         </x-secondary-button>
                     </x-confirms-password>
@@ -106,13 +106,13 @@
 
                 @if ($showingConfirmation)
                     <x-confirms-password wire:then="disableTwoFactorAuthentication">
-                        <x-secondary-button wire:loading.attr="disabled">
+                        <x-secondary-button wire:loading.attr="disabled" class="bg-white border border-[#fce7f3] text-gray-700 hover:bg-[#fdf2f8]">
                             {{ __('Cancel') }}
                         </x-secondary-button>
                     </x-confirms-password>
                 @else
                     <x-confirms-password wire:then="disableTwoFactorAuthentication">
-                        <x-danger-button wire:loading.attr="disabled">
+                        <x-danger-button wire:loading.attr="disabled" class="bg-red-600 hover:bg-red-700">
                             {{ __('Disable') }}
                         </x-danger-button>
                     </x-confirms-password>

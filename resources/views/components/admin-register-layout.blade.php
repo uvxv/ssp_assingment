@@ -107,8 +107,8 @@
                 </div>
                 <h2 class="text-4xl font-bold tracking-tight mb-4">Feel the Rhythm</h2>
                 <p class="text-[#fce7f3]/60 text-lg leading-relaxed max-w-md mx-auto">
-                    Experience music like never before with Tesher Harmony. Connect, stream, and discover your new
-                    favorite sound.
+                    The measure of music is not just in notes, but in the emotions it stirs. Let Tesher Harmony
+                    be the beat that moves your soul.
                 </p>
             </div>
         </div>

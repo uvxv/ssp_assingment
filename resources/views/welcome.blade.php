@@ -132,7 +132,7 @@
                     <div
                         class="group relative overflow-hidden rounded-xl bg-zinc-50 border border-zinc-200 transition hover:shadow-lg">
                         <div class="aspect-[3/2] w-full overflow-hidden bg-zinc-200">
-                            <img src="https://images.unsplash.com/photo-1514119977733-a2797828f694?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                            <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
                                 alt="Drums"
                                 class="h-full w-full object-cover object-center transition duration-300 group-hover:scale-105">
                         </div>
