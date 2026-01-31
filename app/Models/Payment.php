@@ -12,9 +12,9 @@ class Payment extends Model
     protected $primaryKey = 'payment_id';
     protected $guarded = [];
 
-    public function order()
+    public function orders()
     {
-        return $this->hasMany(Order::class, 'order_id', 'order_id');
+        return $this->hasMany(Order::class, 'payment_id', 'payment_id');
     }
 
     public function user()

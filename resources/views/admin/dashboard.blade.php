@@ -121,7 +121,7 @@
             </div>
             <div class="overflow-x-auto">
                 @if($productsSold->count() > 0)
-                    @foreach ($productsSold as $item)
+                    
                         <table class="w-full text-left">
                             <thead class="bg-[#fdf2f8]/50 text-xs uppercase text-gray-500 font-semibold">
                                 <tr>
@@ -130,44 +130,32 @@
                                     <th class="px-6 py-4">Date</th>
                                     <th class="px-6 py-4">Amount</th>
                                     <th class="px-6 py-4">Status</th>
-                                    <th class="px-6 py-4 text-right">Action</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-[#fdf2f8] text-sm">
-                                <!-- Order Row 1 -->
-                                <tr class="hover:bg-[#fdf2f8]/30 transition-colors duration-200">
-                                    <td class="px-6 py-4 font-medium text-gray-800 flex items-center gap-3">
-                                        <div
-                                            class="w-10 h-10 rounded-lg bg-[#fce7f3] flex items-center justify-center text-[#db2777]">
-                                            <img src="{{ asset($item->product->image_path) }}" alt="Gibson Les Paul"
-                                                class="w-8 h-8 object-contain">
-                                        </div>
-                                        <div>
-                                            <div class="font-bold">{{ $item->product->name }}</div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-gray-600">{{ $item->customer->name }}</td>
-                                    <td class="px-6 py-4 text-gray-500">{{ $item->created_at->format('M d, Y') }}</td>
-                                    <td class="px-6 py-4 font-medium text-gray-800">LKR {{ number_format($item->total_amount, 2) }}</td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-100">
-                                            <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> {{ ucfirst($item->status) }}
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <button class="text-gray-400 hover:text-[#db2777] transition-colors"><svg
-                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M6.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM12.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0zM18.75 12a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
-                                            </svg></button>
-                                    </td>
-                                </tr>
-                                <!-- More rows would go here -->
+                                @foreach ($productsSold as $item)
+                                    <tr class="hover:bg-[#fdf2f8]/30 transition-colors duration-200">
+                                        <td class="px-6 py-4 font-medium text-gray-800 flex items-center gap-3">
+                                                <img src="{{ asset('storage/' . $item->product->image_path) }}" alt="Gibson Les Paul"
+                                                    class="w-8 h-8 object-contain">
+                                            <div>
+                                                <div class="font-bold">{{ $item->product->name }}</div>
+                                            </div>
+                                        </td>
+                                        <td class="px-6 py-4 text-gray-600">{{ $item->user->first_name }}</td>
+                                        <td class="px-6 py-4 text-gray-500">{{ $item->created_at->format('M d, Y') }}</td>
+                                        <td class="px-6 py-4 font-medium text-gray-800">LKR {{ number_format($item->total_amount, 2) }}</td>
+                                        <td class="px-6 py-4">
+                                            <span
+                                                class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-yellow-50 text-yellow-700 border border-yellow-100">
+                                                <span class="w-1.5 h-1.5 rounded-full bg-yellow-500"></span> {{ ucfirst($item->status) }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                    @endforeach
+                    
                 @else
                     <div class="p-6 text-center text-gray-500">
                         No recent orders found.

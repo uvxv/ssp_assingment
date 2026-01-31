@@ -19,12 +19,12 @@ class AdminController extends Controller
         $totalRevenue = Order::selectRaw('SUM(orders.total_amount) as total')
             ->join('products', 'orders.product_id', '=', 'products.product_id')
             ->where('products.admin_id', $adminId)
-            ->where('orders.status', 'completed')
+            ->where('orders.status', 'paid')
             ->value('total') ?? 0;
         
         $productsSold = Order::join('products', 'orders.product_id', '=', 'products.product_id')
             ->where('products.admin_id', $adminId)
-            ->where('orders.status', 'completed')
+            ->where('orders.status', 'paid')
             ->get();
 
         // number of avalable items in stock for this admin
@@ -32,10 +32,10 @@ class AdminController extends Controller
             ->where('status', 'available')
             ->count();
 
-        // Number of sold itemss (completed orders) for this admin's products
+        // Number of sold itemss (paid orders) for this admin's products
         $soldCount = Order::join('products', 'orders.product_id', '=', 'products.product_id')
             ->where('products.admin_id', $adminId)
-            ->where('orders.status', 'completed')
+            ->where('orders.status', 'paid')
             ->count();
 
         return view('admin.dashboard', compact('totalRevenue', 'availableCount', 'soldCount', 'productsSold'));

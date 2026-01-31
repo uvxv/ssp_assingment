@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Http;
-use App\Models\Product;
+use Illuminate\Support\Facades\Crypt;
 
 class AllOrdersController extends Controller
 {
@@ -17,14 +17,10 @@ class AllOrdersController extends Controller
         
 
         // dd($result);
-        $product = Product::join('orders', 'products.product_id', '=', 'orders.product_id')
-            ->join('payments', 'orders.payment_id', '=', 'payments.payment_id')
-            ->where('payments.user_id', auth()->id())
-            ->select('products.*')
-            ->get();
+        $trasactions = Payment::with('orders.product')->paginate(10);   
         
-            dd($product);
+        // dd($trasactions);
 
-        return view('orders', compact('product','result'));
+        return view('orders', compact('trasactions','result'));
     }
 }
