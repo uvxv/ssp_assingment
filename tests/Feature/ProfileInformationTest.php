@@ -2,11 +2,12 @@
 
 namespace Tests\Feature;
 
+use Tests\TestCase;
 use App\Models\User;
+use Livewire\Livewire;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Jetstream\Http\Livewire\UpdateProfileInformationForm;
-use Livewire\Livewire;
-use Tests\TestCase;
 
 class ProfileInformationTest extends TestCase
 {
@@ -14,6 +15,7 @@ class ProfileInformationTest extends TestCase
 
     public function test_current_profile_information_is_available(): void
     {
+        Mail::fake();
         $this->actingAs($user = User::factory()->create());
 
         $component = Livewire::test(UpdateProfileInformationForm::class);

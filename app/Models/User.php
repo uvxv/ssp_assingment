@@ -48,20 +48,42 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $appends = [
         'profile_photo_url',
+        'name',
     ];
 
     /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
+     * Accessor for `name` to maintain compatibility with packages/tests
+     * expecting a `name` attribute.
      */
-    protected function casts(): array
+    public function getNameAttribute(): string
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        $first = $this->attributes['first_name'] ?? '';
+        $last = $this->attributes['last_name'] ?? '';
+
+        return trim($first . ' ' . $last);
     }
+
+    /**
+     * Mutator for `name` so assigning `name` will populate
+     * `first_name` and `last_name` database columns.
+     */
+    public function setNameAttribute($value): void
+    {
+        $parts = preg_split('/\\s+/', trim((string) $value), 2, PREG_SPLIT_NO_EMPTY);
+
+        $this->attributes['first_name'] = $parts[0] ?? null;
+        $this->attributes['last_name'] = $parts[1] ?? null;
+    }
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string,string>
+     */
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
 
     public function carts()
     {

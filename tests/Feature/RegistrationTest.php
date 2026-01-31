@@ -40,12 +40,19 @@ class RegistrationTest extends TestCase
         }
 
         $response = $this->post('/register', [
-            'name' => 'Test User',
+            'first_name' => 'Test User',
+            'last_name' => 'Test User',
             'email' => 'test@example.com',
+            'address' => 'Test Address',
+            'phone' => '94761234567',
             'password' => 'password',
             'password_confirmation' => 'password',
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature(),
         ]);
+
+        if ($response->exception) {
+            dd($response->exception->getMessage());
+        }
 
         $this->assertAuthenticated();
         $response->assertRedirect(route('dashboard', absolute: false));
