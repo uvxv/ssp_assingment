@@ -1,4 +1,4 @@
-name: Tesher Harmony - Test Suite
+name: Production Test
 
 on:
   push:
