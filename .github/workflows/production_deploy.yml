@@ -44,9 +44,6 @@ jobs:
             echo "Installing Composer dependencies..."
             composer install --no-dev --optimize-autoloader --no-interaction
 
-      # ----------------------------------------------------------------
-      # STEP 3: Frontend Build (NPM)
-      # ----------------------------------------------------------------
       - name: 3. Build Frontend Assets
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -56,14 +53,15 @@ jobs:
           script_stop: true
           script: |
             cd ~/ssp
-            echo "Installing NPM dependencies..."
-            npm ci --omit=dev
+            echo "Installing ALL dependencies (including Vite)..."
+            npm ci 
+            
             echo "Building assets..."
             npm run build
+            
+            echo "Cleaning up dev dependencies..."
+            npm prune --production
 
-      # ----------------------------------------------------------------
-      # STEP 4: Finalize (Migrate & Cache)
-      # ----------------------------------------------------------------
       - name: 4. Migrate & Optimize
         uses: appleboy/ssh-action@v0.1.6
         with:
