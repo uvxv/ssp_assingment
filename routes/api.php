@@ -8,11 +8,11 @@ use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\ProductController;
 
 Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+    return response()->json($request->user());
+})->middleware('auth:sanctum','cors-custom','throttle:20,1');
 
 // API resource routes for application models (excluding Admin and User)
-Route::middleware('auth:sanctum')->group(function () {  
+Route::middleware('auth:sanctum','throttle:20,1')->group(function () {  
 Route::apiResource('products', ProductController::class);
 Route::apiResource('carts', CartController::class);
 Route::apiResource('orders', OrderController::class);

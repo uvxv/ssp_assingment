@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Middleware\Prelogout;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Middleware\HandleCors;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
@@ -23,6 +24,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->alias([
             'prelogout' => Prelogout::class,
+            'cors-custom' => HandleCors::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

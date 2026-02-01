@@ -33,7 +33,7 @@ class ProductPolicy
      */
     public function create($user): bool
     {
-        return $user instanceof Admin;
+        return $user instanceof Admin && $user->tokenCan('create');
     }
 
     /**
@@ -41,7 +41,9 @@ class ProductPolicy
      */
     public function update($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id == $product->admin_id;
+        return $user instanceof Admin && 
+                $user->tokenCan('update') && 
+                $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -49,7 +51,9 @@ class ProductPolicy
      */
     public function delete($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id == $product->admin_id;
+        return $user instanceof Admin && 
+                $user->tokenCan('delete') && 
+                $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -57,7 +61,9 @@ class ProductPolicy
      */
     public function restore($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id == $product->admin_id;
+        return $user instanceof Admin && 
+                $user->tokenCan('restore') && 
+                $user->admin_id == $product->admin_id;
     }
 
     /**
@@ -65,6 +71,6 @@ class ProductPolicy
      */
     public function forceDelete($user, Product $product): bool
     {
-        return $user instanceof Admin && $user->admin_id == $product->admin_id;
+        return $user instanceof Admin && $user->tokenCan('delete') && $user->admin_id == $product->admin_id;
     }
 }

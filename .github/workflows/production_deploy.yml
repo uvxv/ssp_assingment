@@ -72,7 +72,7 @@ jobs:
           script: |
             cd ~/ssp
             echo "Running migrations..."
-            php artisan migrate --force
+            php artisan migrate
 
             echo "Clearing and optimizing caches..."
             php artisan optimize:clear
