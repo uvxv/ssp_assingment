@@ -3,6 +3,7 @@ name: Production Deploy
 on:
   workflow_run:
     workflows: ["Production Test"]
+    branches: [ master ]
     types:
       - completed
 
