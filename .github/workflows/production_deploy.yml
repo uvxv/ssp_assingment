@@ -14,34 +14,71 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy via ssh
+      steps:
+      # ----------------------------------------------------------------
+      # STEP 1: Update Codebase
+      # ----------------------------------------------------------------
+      - name: 1. Pull Latest Code
         uses: appleboy/ssh-action@v0.1.6
         with:
-          host : ${{ secrets.DEPLOY_SERVER }}
-          username : ${{ secrets.DEPLOY_USER }}
-          key : ${{ secrets.DEPLOY_KEY }}
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script_stop: true
           script: |
-            echo `whoami`
-            echo "---------------- Changing directory to home ----------------"
-            cd ~
-            echo "---------------- Pulling latest code ----------------"
-            cd ssp
-            echo "---------------- Installing composer dependencies ----------------"
+            cd ~/ssp
+            echo "Pulling latest changes..."
             git pull origin master
-            echo "---------------- Running composer install ----------------"
+
+      # ----------------------------------------------------------------
+      # STEP 2: Backend Dependencies (Composer)
+      # ----------------------------------------------------------------
+      - name: 2. Install Backend Dependencies
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script_stop: true
+          script: |
+            cd ~/ssp
+            echo "Installing Composer dependencies..."
             composer install --no-dev --optimize-autoloader --no-interaction
-            echo "---------------- Installing npm dependencies ----------------"
+
+      # ----------------------------------------------------------------
+      # STEP 3: Frontend Build (NPM)
+      # ----------------------------------------------------------------
+      - name: 3. Build Frontend Assets
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script_stop: true
+          script: |
+            cd ~/ssp
+            echo "Installing NPM dependencies..."
             npm ci --omit=dev
-            echo "---------------- Running migrations ----------------"
-            php artisan migrate
-            echo "---------------- Clearing caches and optimizing ----------------"
-            php artisan config:clear
-            php artisan view:clear
-            php artisan route:clear
-            php artisan cache:clear
-            php artisan optimize:clear
+            echo "Building assets..."
             npm run build
 
+      # ----------------------------------------------------------------
+      # STEP 4: Finalize (Migrate & Cache)
+      # ----------------------------------------------------------------
+      - name: 4. Migrate & Optimize
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.DEPLOY_SERVER }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script_stop: true
+          script: |
+            cd ~/ssp
+            echo "Running migrations..."
+            php artisan migrate --force
+
+            echo "Clearing and optimizing caches..."
+            php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
