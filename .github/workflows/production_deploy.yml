@@ -50,13 +50,13 @@ jobs:
           script: |
             cd ~/ssp
             echo "Installing ALL dependencies (including Vite)..."
-            npm ci 
+            npm ci --no-audit --prefer-offline 
             
             echo "Building assets..."
             npm run build
             
             echo "Cleaning up dev dependencies..."
-            npm prune --omit=dev
+            npm prune --omit=dev --no-audit
 
       - name: 4. Migrate & Optimize
         uses: appleboy/ssh-action@v0.1.6
