@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 
 
 class PaymentController extends Controller
-{
+{   // API controller for payments with authorization checks
     public function index()
     {
         $user = request()->user();
@@ -19,7 +19,7 @@ class PaymentController extends Controller
             return PaymentResource::collection($payments);
         }
 
-        return PaymentResource::collection(Payment::all());
+        return PaymentResource::collection(Payment::all()); // return all payments for authorized users
     }
 
     public function show(Payment $payment)

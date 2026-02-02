@@ -8,10 +8,11 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
-{
+{ // API controller for orders with authorization checks
     public function index()
     {
-        $user = request()->user();
+        $user = request()->user(); // get the authenticated user
+
 
         if(!$user->can('viewAny', Order::class)) { // if user cannot view any orders
             $orders = Order::where('user_id', $user->id)->get();
@@ -45,7 +46,7 @@ class OrderController extends Controller
             'payment_id' => 'required|numeric',
             'total_amount' => 'required|numeric',
             'status' => 'required|string|in:pending,completed',
-        ]);
+        ]); // validate incoming request data
 
         $order = Order::create($validated);
         return response()->json(['message' => 'success'], 201);

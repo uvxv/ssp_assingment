@@ -8,7 +8,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
-{
+{  // API controller for products with authorization checks
     public function index()
     {
         $user = request()->user();

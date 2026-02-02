@@ -77,7 +77,7 @@
                         <div class="bg-white p-6 rounded-2xl shadow-sm border border-[#fce7f3]">
                             <h2 class="text-lg font-bold text-gray-800 mb-4">Product Image</h2>
                             
-                            <div class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-10 hover:bg-[#fdf2f8] transition-colors relative group cursor-pointer">
+                            <div id="upload-area" onclick="triggerFileDialog()" role="button" class="mt-2 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-10 hover:bg-[#fdf2f8] transition-colors relative group cursor-pointer">
                                 <div class="text-center">
                                     <div class="mx-auto h-12 w-12 text-gray-300 group-hover:text-[#ec4899] transition-colors">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -87,7 +87,7 @@
                                     <div class="mt-4 flex text-sm leading-6 text-gray-600 justify-center">
                                         <label for="file-upload" class="relative cursor-pointer rounded-md bg-white font-semibold text-[#ec4899] focus-within:outline-none focus-within:ring-2 focus-within:ring-[#ec4899] focus-within:ring-offset-2 hover:text-[#db2777]">
                                             <span>Upload a file</span>
-                                            <input id="file-upload" name="image" type="file" class="sr-only" onchange="previewImage(event)" required>
+                                            <input id="file-upload" name="image" type="file" class="sr-only" onchange="previewImage(event)" onclick="this.value='';" required>
                                         </label>
                                         <p class="pl-1">or drag and drop</p>
                                     </div>
@@ -95,7 +95,7 @@
                                 </div>
                                 
                                 <!-- Preview Image (Hidden by default) -->
-                                <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden">
+                                <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover rounded-lg hidden pointer-events-none">
                             </div>
                         </div>
 
@@ -117,6 +117,14 @@
                     if(event.target.files[0]) {
                         reader.readAsDataURL(event.target.files[0]);
                     }
+                }
+
+                function triggerFileDialog() {
+                    const input = document.getElementById('file-upload');
+                    if (!input) return;
+                    // Reset value so selecting the same file again triggers `change`
+                    input.value = '';
+                    input.click();
                 }
             </script>
 

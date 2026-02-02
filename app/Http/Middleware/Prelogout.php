@@ -15,6 +15,7 @@ class Prelogout
      */
     public function handle(Request $request, Closure $next): Response
     {
+        // Delete all tokens for the authenticated user before logout
         if($request->isMethod('post') && $request->routeIs('logout')){
             $user = $request->user();
             if($user){

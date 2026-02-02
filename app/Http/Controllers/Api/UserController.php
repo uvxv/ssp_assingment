@@ -16,6 +16,6 @@ class UserController extends Controller
     public function index(Request $request)
     {
         return 'hello';
-        // response()->json($request->user());
+        response()->json($request->user());
     }
 }

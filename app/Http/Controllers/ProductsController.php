@@ -18,7 +18,7 @@ class ProductsController extends Controller
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
-            'price' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:500',
             'status' => 'required|in:available,not_available',
             'image' => 'nullable|image|max:2048', 
         ]);
@@ -45,8 +45,8 @@ class ProductsController extends Controller
                         'image_path' => $validatedData['image_path'],
                     ]);
 
-        if ($status->failed()) {
-            return dd($status);
+        if ($status->failed()) { // failed() specifically checks for 4xx and 5xx status codes
+            return redirect()->back()->withErrors('Failed to add product. Please try again.');
         }
         
         return redirect()->back()->with('success', 'Product added successfully!');

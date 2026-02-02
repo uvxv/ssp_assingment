@@ -57,6 +57,7 @@ class CheckoutController extends Controller
         ]);
         // dd($response);
 
+        // Trigger the PaymentSuccess event
         event(new PaymentSuccess($response->line_items->data, $response->payment_intent->id, $response->amount_total));
         return view('checkout.success', ['amount_total' => $response->amount_total / 100, 
                                         'id' => $response->payment_intent->id, 
@@ -68,6 +69,7 @@ class CheckoutController extends Controller
 
     public function cancel()
     {
-        return 'cancel';
+        // Handle payment cancellation
+        return redirect()->route('cart.index')->with('payment_status', 'Payment was cancelled.');
     }
 }
