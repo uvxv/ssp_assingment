@@ -14,9 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # ----------------------------------------------------------------
-      # STEP 1: Update Codebase
-      # ----------------------------------------------------------------
+
       - name: 1. Pull Latest Code
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -29,9 +27,7 @@ jobs:
             echo "Pulling latest changes..."
             git pull origin master
 
-      # ----------------------------------------------------------------
-      # STEP 2: Backend Dependencies (Composer)
-      # ----------------------------------------------------------------
+  
       - name: 2. Install Backend Dependencies
         uses: appleboy/ssh-action@v0.1.6
         with:
@@ -60,7 +56,7 @@ jobs:
             npm run build
             
             echo "Cleaning up dev dependencies..."
-            npm prune --production
+            npm prune --omit=dev
 
       - name: 4. Migrate & Optimize
         uses: appleboy/ssh-action@v0.1.6
