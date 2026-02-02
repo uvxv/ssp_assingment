@@ -18,7 +18,9 @@ use App\Http\Controllers\Auth\EmailVerificationController;
 // Public routes
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})
+->middleware('cors-custom')
+->name('home');
 
 
 // Mail verification routes (controller-backed)
