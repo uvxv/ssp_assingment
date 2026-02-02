@@ -26,7 +26,8 @@ class OrderPolicy
             return true;
         }
 
-        return $user instanceof User && $order->user_id === $user->id;
+        return $user instanceof User && $order->user_id === $user->id &&
+                $user->tokenCan('read');
     }
 
     /**
@@ -34,7 +35,7 @@ class OrderPolicy
      */
     public function create($user): bool
     {
-        return $user instanceof Admin || $user instanceof User;
+        return $user instanceof Admin || ($user instanceof User && $user->tokenCan('create'));
     }
 
     /**
@@ -42,7 +43,7 @@ class OrderPolicy
      */
     public function update($user, Order $order): bool
     {
-        return $user instanceof Admin;
+        return false;
     }
 
     /**
@@ -50,7 +51,7 @@ class OrderPolicy
      */
     public function delete($user, Order $order): bool
     {
-        return $user instanceof Admin;
+        return false;
     }
 
     /**

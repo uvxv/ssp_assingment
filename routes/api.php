@@ -9,7 +9,7 @@ use App\Http\Controllers\Api\ProductController;
 
 Route::get('/user', function (Request $request) {
     return ['user' => $request->user()];
-})->middleware('cors-custom','throttle:20,1');
+})->middleware('auth:sanctum','cors-custom','throttle:20,1');
 
 // API resource routes for application models (excluding Admin and User)
 Route::middleware('auth:sanctum','throttle:20,1')->group(function () {  

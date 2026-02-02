@@ -26,7 +26,8 @@ class PaymentPolicy
             return true;
         }
 
-        return $user instanceof User && $payment->user_id === $user->id;
+        return $user instanceof User && $payment->user_id === $user->id &&
+                $user->tokenCan('read');
     }
 
     /**
@@ -34,7 +35,7 @@ class PaymentPolicy
      */
     public function create($user): bool
     {
-        return $user instanceof Admin || $user instanceof User;
+        return $user instanceof Admin || ($user instanceof User && $user->tokenCan('create'));
     }
 
     /**
@@ -42,7 +43,7 @@ class PaymentPolicy
      */
     public function update($user, Payment $payment): bool
     {
-        return $user instanceof Admin;
+        return false;
     }
 
     /**
@@ -50,7 +51,7 @@ class PaymentPolicy
      */
     public function delete($user, Payment $payment): bool
     {
-        return $user instanceof Admin;
+        return false;
     }
 
     /**

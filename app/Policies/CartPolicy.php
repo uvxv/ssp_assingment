@@ -31,7 +31,8 @@ class CartPolicy
             return true;
         }
 
-        return $user instanceof User && $cart->user_id === $user->id;
+        return $user instanceof User && $cart->user_id === $user->id &&
+                $user->tokenCan('read');
     }
 
     /**
@@ -39,7 +40,7 @@ class CartPolicy
      */
     public function create($user): bool
     {
-        return $user instanceof Admin || $user instanceof User;
+        return $user instanceof Admin || ($user instanceof User && $user->tokenCan('create'));
     }
 
 
@@ -52,7 +53,8 @@ class CartPolicy
             return true;
         }
 
-        return $user instanceof User && $cart->user_id === $user->id;
+        return $user instanceof User && $cart->user_id === $user->id &&
+                $user->tokenCan('update');
     }
 
 
@@ -65,7 +67,8 @@ class CartPolicy
             return true;
         }
 
-        return $user instanceof User && $cart->user_id === $user->id;
+        return $user instanceof User && $cart->user_id === $user->id &&
+                $user->tokenCan('delete');
     }
   
 
@@ -78,7 +81,8 @@ class CartPolicy
             return true;
         }
 
-        return $user instanceof User && $cart->user_id === $user->id;
+        return $user instanceof User && $cart->user_id === $user->id &&
+                $user->tokenCan('restore');
     }
 
 
@@ -87,7 +91,8 @@ class CartPolicy
      */
     public function forceDelete($user, Cart $cart): bool
     {
-        return $user instanceof Admin;
+        return $user instanceof User && $cart->user_id === $user->id &&
+                $user->tokenCan('delete');
     }
 
 }

@@ -15,7 +15,7 @@ class ProductController extends Controller
 
         if(!$user->can('viewAny', Product::class)) {
             $products = Product::where('admin_id', $user->id)->paginate(10);
-            return ProductResource::collection($products::paginate(10));
+            return ProductResource::collection($products);
         }
 
         return ProductResource::collection(Product::paginate(2));
